@@ -1,5 +1,6 @@
 {:paths ["src" "resources"]
- :deps {org.clojure/clojurescript {:mvn/version "1.11.132"}}
+ :deps {org.clojure/clojurescript {:mvn/version "1.11.132"}
+        reagent/reagent {:mvn/version "1.2.0"}}
  :aliases
  {:dev {:extra-paths ["dev"]
         :extra-deps {cider/cider-nrepl {:mvn/version "0.47.1"}

@@ -1,4 +1,12 @@
-(ns hl7v2-lab.core)
+(ns hl7v2-lab.core
+  (:require
+   [reagent.dom :as rd]))
+
+(defn app []
+  [:div
+   "Hi mom!"])
 
 (defn init []
-  (println "Hello World!"))
+  (rd/render
+   [app]
+   (.getElementById js/document "app")))

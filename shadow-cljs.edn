@@ -1,5 +1,10 @@
 {:deps {:aliases [:shadow :dev]}
+ :dev-http {3000 "resources/public"}
  :builds {:app {:target :browser
-                :output-dir "public/js"
+                :output-dir "resources/public/js"
                 :asset-path "/js"
+                :module-hash-names true
+                :build-options {:manifest-name "manifest.edn"}
+                :build-hooks [(hooks/update-hashed-modules :html-file "resources/public/index.html"
+                                                           :manifest-file "resources/public/js/manifest.edn")]
                 :modules {:main {:init-fn hl7v2-lab.core/init}}}}}
