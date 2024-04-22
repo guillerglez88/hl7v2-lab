@@ -35,6 +35,9 @@
                  (with-out-str
                    (pp/pprint @route-match))]))]
     (init-router)
+    (when ^boolean goog.DEBUG
+      (enable-console-print!)
+      (println "--> dev mode"))
     (rd/render
      (rd/create-root (.getElementById js/document "app"))
      [app])))
