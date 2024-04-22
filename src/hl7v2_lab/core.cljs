@@ -7,35 +7,34 @@
    [reitit.frontend.controllers :as rfc]
    [clojure.pprint :as pp]))
 
-(defonce match (r/atom nil))
-
 (defn home-page []
   [:div
    "Hi mom!"])
 
-(def router
-  (rf/router
-   ["/" {:name ::home
-         :view home-page}]))
-
-(defn app []
-  (if @match
-    (let [view (get-in @match [:data :view])]
-      [view @match])
-    [:pre
-     (with-out-str
-       (pp/pprint @match))]))
+(def routes
+  ["/" {:name ::home
+        :view home-page}])
 
 (defn init []
-  (rfe/start!
-   router
-   (fn [new-match]
-     (when new-match
-       (reset! match
-               (if-let [cs (:controllers @match)]
-                 (assoc new-match :controllers (rfc/apply-controllers cs new-match))
-                 new-match))))
-   {:use-fragment true})
-  (rd/render
-   (rd/create-root (.getElementById js/document "app"))
-   [app]))
+  (let [route-match (r/atom nil)
+        init-router (fn []
+                      (rfe/start!
+                       (rf/router routes)
+                       (fn [match]
+                         (when match
+                           (reset! route-match
+                                   (if-let [cs (:controllers @route-match)]
+                                     (assoc match :controllers (rfc/apply-controllers cs match))
+                                     match))))
+                       {:use-fragment true}))
+        app (fn []
+              (if @route-match
+                (let [view (get-in @route-match [:data :view])]
+                  [view @route-match])
+                [:pre
+                 (with-out-str
+                   (pp/pprint @route-match))]))]
+    (init-router)
+    (rd/render
+     (rd/create-root (.getElementById js/document "app"))
+     [app])))
