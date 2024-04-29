@@ -5,12 +5,18 @@
   "scripts": {
     "shadow:watch": "shadow-cljs -A:shadow:dev watch app",
     "shadow:compile": "shadow-cljs -A:shadow:dev compile app",
-    "shadow:release": "shadow-cljs -A:shadow release app --verbose"
+    "shadow:release": "shadow-cljs -A:shadow release app --verbose",
+    "postcss:watch": "postcss src/hl7v2_lab/styles.css -o resources/public/css/main.css --watch"
   },
   "devDependencies": {
+    "cssnano": "^7.0.1",
+    "postcss": "^8.4.38",
+    "postcss-cli": "^11.0.0",
+    "postcss-import": "^16.1.0",
     "shadow-cljs": "2.28.3"
   },
   "dependencies": {
+    "bulma": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }

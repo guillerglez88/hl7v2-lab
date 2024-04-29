@@ -23,3 +23,4 @@ pom.xml.asc
 /out
 .clj-kondo/.cache
 .lsp
+/resources/public/css/
